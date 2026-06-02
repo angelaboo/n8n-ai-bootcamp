@@ -1,0 +1,188 @@
+{
+  "name": "Expense Approval Flow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "27de0ffe-989d-4850-af30-aa766378225a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "14b653f0-71a3-474f-9996-788189e651e8",
+              "name": "expense",
+              "value": 25,
+              "type": "number"
+            },
+            {
+              "id": "6dd5f934-43cf-4b2e-abfd-aa24fe6a1d1c",
+              "name": "category",
+              "value": "office_supplies",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b6b7825a-4536-4470-acc3-271237c561ae",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "acca5e71-a28b-4ac3-a7b3-5a74bf2a6405",
+              "leftValue": "={{ $json.expense }}",
+              "rightValue": 100,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "d220ecd5-02b5-4b04-936a-e969ef899fca",
+              "leftValue": "={{ $json.category }}",
+              "rightValue": "travel",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c64de5c2-b90a-4c39-b86e-9f666ba6218a",
+      "name": "Check Expense"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "74294863-ce76-4fa0-965f-9f56823b30a7",
+              "name": "decision",
+              "value": "approved",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "c8075f1b-f65d-4052-8768-e47363fbefb3",
+      "name": "Approved"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f4a5b2c-7e1b-4c33-bc02-80bfb9e2e274",
+              "name": "decision",
+              "value": "rejected",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        96
+      ],
+      "id": "d9da8a16-3a04-4561-8be8-f60d749d04bd",
+      "name": "Rejected"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Check Expense",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Expense": {
+      "main": [
+        [
+          {
+            "node": "Approved",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "38c2ef79-fd98-4ddf-9cb0-77f44049fa57",
+  "meta": {
+    "instanceId": "5a750470eb7870f8001fa2544f851819c468619887e74f93b1776cc82c7cc83d"
+  },
+  "nodeGroups": [],
+  "id": "C9kDrtMSiMtcYaoz",
+  "tags": []
+}
