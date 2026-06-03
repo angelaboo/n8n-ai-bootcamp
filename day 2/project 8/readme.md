@@ -72,6 +72,8 @@ Options
 - **Pinecone Namespace**: `it`
 - **Clear Namespace**: `true`
 
+**Note**: Clearing the namespace runs on every cycle. If the number of chunks exceeds the `Emdedding Batch Size`, only the last run will be stored. In this case, increase batch size or disable `Clear namespace`.
+
 #### 5.1 Subnodes
 Model
 - **Embeddings**: Add `Embeddings Google Gemini` node
