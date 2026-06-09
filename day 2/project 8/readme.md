@@ -67,10 +67,12 @@ day 2/project 8/documents/
 ### 5. Configure `Pinecone Vector Stors` Node
 - **Operation Mode**: `Insert Documents`
 - **Pinecone Index**: `documents`
-- **Embedding Batch Size**: `200`
+- **Embedding Batch Size**: `20`
 Options
 - **Pinecone Namespace**: `it`
 - **Clear Namespace**: `true`
+
+**Note**: `Clear Namespace` runs on every cycle. If the number of chunks exceeds the `Emdedding Batch Size`, only the last run will be stored. In this case, increase batch size or disable `Clear namespace`.
 
 #### 5.1 Subnodes
 Model
